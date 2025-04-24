@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block title %}Indicadores de Resiliencia{% endblock %}
+{% block content %}
+  <h2>Indicadores para la resiliencia territorial</h2>
+
+  {% if user.profile.role == 'admin_territorial' %}
+    <a href="{% url 'add_resilience_indicator' %}" class="btn btn-success mb-3">+ Añadir Indicador</a>
+  {% endif %}
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Unidad</th>
+        <th>Línea base</th>
+        <th>Meta</th>
+        <th>Año</th>
+        <th>Riesgo Asociado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ind in indicators %}
+        <tr>
+          <td>{{ ind.name }}</td>
+          <td>{{ ind.unit }}</td>
+          <td>{{ ind.baseline }}</td>
+          <td>{{ ind.target }}</td>
+          <td>{{ ind.year_target }}</td>
+          <td>{{ ind.risk_focus }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6">No hay indicadores aún.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

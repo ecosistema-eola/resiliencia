@@ -1,0 +1,26 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+  <h2>Dashboard</h2>
+
+  <h3>Indicador Base</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Actualizar</button>
+  </form>
+
+  <p>Valor actual del indicador: {{ indicator.value }}</p>
+
+  <hr>
+  <h3>Proyectos Propuestos</h3>
+  <ul>
+    {% for proposal in proposals %}
+      <li><strong>{{ proposal.title }}</strong> — {{ proposal.proposer.username }}</li>
+    {% empty %}
+      <li>No hay propuestas aún.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

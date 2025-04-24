@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block title %}Proyectos Conjuntos{% endblock %}
+{% block content %}
+<h2>Proyectos Conjuntos</h2>
+<a href="{% url 'create_joint_project' %}" class="btn btn-success">Nuevo Proyecto Conjunto</a>
+<ul>
+  {% for proj in projects %}
+    <li>{{ proj.title }} ({{ proj.created_at|date:"d/m/Y" }})</li>
+  {% empty %}
+    <li>No hay proyectos conjuntos aún.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

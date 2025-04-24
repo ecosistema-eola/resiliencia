@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% block title %}Mis Riesgos{% endblock %}
+
+{% block content %}
+  <h2>Mis Riesgos Particulares</h2>
+  <a href="{% url 'upload_risk' %}" class="btn btn-primary mb-3">Nuevo Riesgo</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Riesgo</th>
+        <th>Residual</th>
+        <th>Impacto Financiero</th>
+        <th>CSV</th>
+        <th>GPT</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for risk in risks %}
+        <tr>
+          <td>{{ risk.name }}</td>
+          <td>{{ risk.residual }}</td>
+          <td>{{ risk.financial_impact }}</td>
+          <td>
+            {% if risk.csv_file %}
+              <a href="{{ risk.csv_file.url }}" target="_blank">Descargar CSV</a>
+            {% endif %}
+          </td>
+          <td>
+            {% if risk.gpt_link %}
+              <a href="{{ risk.gpt_link }}" target="_blank">Análisis GPT</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5">No tienes riesgos cargados.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

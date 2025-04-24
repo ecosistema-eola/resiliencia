@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+{% block title %}Proyectos{% endblock %}
+{% block content %}
+<h2>Proyectos en el Territorio</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Indicador</th>
+      <th>Estado</th>
+      <th>Propuesto por</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in projects %}
+    <tr>
+      <td>{{ p.title }}</td>
+      <td>{{ p.indicator }}</td>
+      <td>{{ p.get_status_display }}</td>
+      <td>{{ p.proposer.username }}</td>
+      <td>{{ p.created_at|date:"Y-m-d" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No hay proyectos registrados aún.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<p><a class="btn btn-success" href="{% url 'create_project' %}">Proponer nuevo proyecto</a></p>
+{% endblock %}

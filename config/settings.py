@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',   # <-- tu app principal
+    'core.apps.CoreConfig',  # ✅ el correcto
 ]
 
 MIDDLEWARE = [
@@ -67,6 +67,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -127,3 +129,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Redirecciones después de login/logout
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# Para servir archivos subidos en desarrollo
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

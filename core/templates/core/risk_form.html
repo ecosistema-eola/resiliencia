@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block title %}Nuevo Riesgo{% endblock %}
+
+{% block content %}
+  <h2>Registrar Riesgo Particular</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success" type="submit">Guardar</button>
+  </form>
+  <a href="{% url 'list_risks' %}">Volver a mis riesgos</a>
+{% endblock %}

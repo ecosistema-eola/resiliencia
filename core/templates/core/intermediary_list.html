@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+{% block title %}Intermediarios Ambientales{% endblock %}
+{% block content %}
+
+<h2>Intermediarios Ambientales</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Puntuación</th>
+      <th>Proyectos Realizados</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in intermediaries %}
+    <tr>
+      <td>{{ p.user.username }}</td>
+      <td>{{ p.description }}</td>
+      <td>{{ p.rating }}</td>
+      <td>{{ p.projects_done }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">Aún no hay intermediarios registrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

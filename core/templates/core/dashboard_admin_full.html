@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% block title %}Panel del Administrador Territorial{% endblock %}
+
+{% block content %}
+<h2>Dashboard del Administrador Territorial</h2>
+
+<h3>Usuarios Registrados</h3>
+<ul>
+  {% for user in users %}
+    <li>{{ user.username }} - {{ user.email }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Riesgos Registrados</h3>
+<table class="table">
+  <thead><tr><th>Nombre</th><th>Usuario</th><th>Tipo</th></tr></thead>
+  <tbody>
+    {% for risk in risks %}
+    <tr>
+      <td>{{ risk.name }}</td>
+      <td>{{ risk.owner.username }}</td>
+      <td>{% if risk.is_territory %}Territorio{% else %}Empresa{% endif %}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3>Indicadores Globales</h3>
+<ul>
+  {% for indicator in indicators %}
+    <li>{{ indicator.name }}: {{ indicator.value }} ({{ indicator.user.username }})</li>
+  {% endfor %}
+</ul>
+
+<h3>Proyectos Cargados</h3>
+<ul>
+  {% for proposal in proposals %}
+    <li>{{ proposal.title }} — {{ proposal.proposer.username }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

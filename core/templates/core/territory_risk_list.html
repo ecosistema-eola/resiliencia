@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Riesgos del Territorio{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Riesgos Generales del Territorio</h2>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Riesgo</th>
+        <th>Impacto Financiero</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for risk in risks %}
+        <tr>
+          <td>{{ risk.name }}</td>
+          <td>{{ risk.financial_impact }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="2">No hay riesgos generales registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% block title %}Admin Plataforma{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Panel de Administrador de Plataforma</h2>
+
+  <div class="row my-4">
+    <div class="col">
+      <div class="card p-3">
+        <h5>Usuarios registrados</h5>
+        <p class="display-6">{{ users.count }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Riesgos reportados</h5>
+        <p class="display-6">{{ risks.count }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Indicadores</h5>
+        <p class="display-6">{{ indicators.count }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Proyectos</h5>
+        <p class="display-6">{{ projects.count }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card p-3">
+        <h5>Intermediarios</h5>
+        <p class="display-6">{{ intermediaries.count }}</p>
+      </div>
+    </div>
+  </div>
+
+  <h4>Detalle de Usuarios</h4>
+  <table class="table table-striped">
+    <thead><tr><th>Usuario</th><th>Email</th><th>Rol</th></tr></thead>
+    <tbody>
+      {% for u in users %}
+        <tr>
+          <td>{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.profile.get_role_display }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4 class="mt-5">Detalle de Intermediarios Ambientales</h4>
+  <table class="table table-striped">
+    <thead><tr><th>Usuario</th><th>Descripción</th><th>Puntuación</th><th>Proyectos</th></tr></thead>
+    <tbody>
+      {% for p in intermediaries %}
+        <tr>
+          <td>{{ p.user.username }}</td>
+          <td>{{ p.description }}</td>
+          <td>{{ p.rating }}</td>
+          <td>{{ p.projects_done }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Puedes añadir más secciones similares para riesgos, indicadores y proyectos -->
+</div>
+{% endblock %}

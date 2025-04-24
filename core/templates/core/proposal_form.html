@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block title %}Crear Propuesta{% endblock %}
+{% block content %}
+<h1>Nueva Propuesta</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-primary">Guardar</button>
+</form>
+{% endblock %}
