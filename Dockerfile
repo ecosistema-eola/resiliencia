@@ -21,5 +21,4 @@ RUN python manage.py collectstatic --noinput || echo "Collectstatic failed"
 EXPOSE 8000
 
 # Comando para arrancar tu app con Gunicorn
-CMD gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
-
+ENTRYPOINT ["sh", "-c", "echo 'PORT='${PORT} && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT}"]
