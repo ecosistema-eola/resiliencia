@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config(
+     'default': dj_database_url.config(
         default=config(
             'DATABASE_URL',
             default='postgres://postgres:1278@localhost:5432/plataforma_db'
