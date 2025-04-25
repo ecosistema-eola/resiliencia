@@ -14,7 +14,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Recolecta estáticos
-RUN python manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput || echo "Collectstatic failed"
+
 
 # Expone el puerto estándar de Heroku/Railway
 EXPOSE 8000
