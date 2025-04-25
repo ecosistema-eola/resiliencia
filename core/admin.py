@@ -6,6 +6,6 @@ class IndicatorAdmin(admin.ModelAdmin):
     list_display = ('user', 'name', 'value', 'updated_at')
 
 @admin.register(ProjectProposal)
-class ProposalAdmin(admin.ModelAdmin):
+class ProjectProposalAdmin(admin.ModelAdmin):
     list_display = ('title', 'proposer', 'created_at')
     search_fields = ('title', 'proposer__username')

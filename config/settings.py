@@ -1,20 +1,9 @@
 import os
 from pathlib import Path
+import dj_database_url
 from decouple import config, UndefinedValueError
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-import dj_database_url
-DATABASES = {
-     'default': dj_database_url.config(
-        default=config(
-            'DATABASE_URL',
-            default='postgres://postgres:1278@localhost:5432/plataforma_db'
-        ),
-        conn_max_age=600,
-        ssl_require=not config('DEBUG', default=False, cast=bool)
-    )
-}
 
 
 
@@ -26,6 +15,23 @@ except UndefinedValueError:
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
+
+DEFAULT_DB_URL = config(
+    'DATABASE_URL',
+    default=None  # <-- así no volverá a postgres://localhost/... en prod
+)
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default=None),
+        conn_max_age=600,
+        ssl_require=not DEBUG
+    )
+}
+
+
+
+
 
 # Apps y Middleware
 INSTALLED_APPS = [
@@ -78,17 +84,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Base de datos (ajustar en Railway con DATABASE_URL si es necesario)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE'),
-        'USER': config('PGUSER'),
-        'PASSWORD': config('PGPASSWORD'),
-        'HOST': config('PGHOST'),
-        'PORT': config('PGPORT'),
-    }
-}
+
 
 # Otras configuraciones
 LOGIN_REDIRECT_URL = '/'
