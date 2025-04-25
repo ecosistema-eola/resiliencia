@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # O solo [] si no usas un directorio personalizado
+        'DIRS': [BASE_DIR / 'templates'],  # o [] si no usas carpeta global
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
