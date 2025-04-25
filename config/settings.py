@@ -4,6 +4,15 @@ from decouple import config, UndefinedValueError
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='postgres://postgres:1278@localhost:5432/plataforma_db')
+    )
+}
+
+
+
 # Seguridad
 try:
     SECRET_KEY = config('SECRET_KEY')
@@ -23,6 +32,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.apps.CoreConfig',
 ]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],  # O solo [] si no usas un directorio personalizado
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,11 +76,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'plataforma_db',
-        'USER': 'postgres',
-        'PASSWORD': '1278',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('PGDATABASE'),
+        'USER': config('PGUSER'),
+        'PASSWORD': config('PGPASSWORD'),
+        'HOST': config('PGHOST'),
+        'PORT': config('PGPORT'),
     }
 }
 
