@@ -23,11 +23,24 @@ DEFAULT_DB_URL = config(
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL', default=None),
-        conn_max_age=600,
-        ssl_require=not DEBUG
+        default=config('DATABASE_URL'),
+        conn_max_age=600,         # reusa conexiones por hasta 10 minutos
+        ssl_require=True          # fuerza SSL en producción
     )
 }
+
+#DATABASES = {
+#    'default': dj_database_url.config(default=config('DATABASE_URL'))
+#}
+
+#DATABASES = {
+#    'default': dj_database_url.config(
+#        default=config('DATABASE_URL', default=None),
+#        conn_max_age=600,
+#        ssl_require=not DEBUG
+#    )
+#}
+
 
 
 
@@ -79,7 +92,8 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Archivos estáticos y media
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
