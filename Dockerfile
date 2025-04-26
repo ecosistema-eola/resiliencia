@@ -17,8 +17,8 @@ COPY . .
 RUN python manage.py collectstatic --noinput || echo "Collectstatic failed"
 
 
-# Expone el puerto estándar de Heroku/Railway
+# Expone el puerto (no es obligatorio, pero es buena práctica)
 EXPOSE 8000
 
-# Comando para arrancar tu app con Gunicorn
-ENTRYPOINT ["sh", "-c", "echo 'PORT='${PORT} && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT}"]
+# Arranca Gunicorn, usando $PORT si viene de Railway, o 8000 por defecto
+CMD ["sh", "-c", "exec gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000}"]
