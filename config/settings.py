@@ -24,10 +24,11 @@ DEFAULT_DB_URL = config(
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
-        conn_max_age=600,         # reusa conexiones por hasta 10 minutos
-        ssl_require=True          # fuerza SSL en producción
+        conn_max_age=600,        # reusa conexiones por hasta 10 minutos
+        ssl_require=False         # fuerza SSL en producción
     )
 }
+
 
 #DATABASES = {
 #    'default': dj_database_url.config(default=config('DATABASE_URL'))
