@@ -22,6 +22,9 @@ EXPOSE 8000
 
 # Arranca Gunicorn, usando $PORT si viene de Railway, o 8000 por defecto
 
+# Copia y asigna permisos al entrypoint
+COPY entrypoint.sh ./
+RUN chmod +x entrypoint.sh
 
-HEALTHCHECK --interval=30s --timeout=5s \
-  CMD curl --fail http://localhost:${PORT:-8000}/healthz/ || exit 1
+# Reemplaza CMD/ENTRYPOINT por:
+ENTRYPOINT ["./entrypoint.sh"]
