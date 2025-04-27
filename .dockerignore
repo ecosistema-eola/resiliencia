@@ -1,7 +1,7 @@
-__pycache__/
-*.pyc
-.git
+.plataforma_env/
 .env
-*.db
-staticfiles/
+.git/
 .nixpacks/
+*.pyc
+__pycache__/
+
