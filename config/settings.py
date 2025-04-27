@@ -16,19 +16,17 @@ except UndefinedValueError:
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
 
-DEFAULT_DB_URL = config(
-    'DATABASE_URL',
-    default=None  # <-- así no volverá a postgres://localhost/... en prod
-)
+database_url = config('DATABASE_URL', default=None)
+if not database_url and not DEBUG:
+    raise RuntimeError("En producción debes definir DATABASE_URL")
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
-        conn_max_age=600,        # reusa conexiones por hasta 10 minutos
-        ssl_require=False         # fuerza SSL en producción
+        default=database_url,
+        conn_max_age=600,
+        ssl_require=not DEBUG,
     )
 }
-
 
 #DATABASES = {
 #    'default': dj_database_url.config(default=config('DATABASE_URL'))
