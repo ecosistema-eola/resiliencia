@@ -1,21 +1,25 @@
 from django.contrib import admin
-from django.urls import path, include  # asegúrate de importar include
+from django.http import HttpResponse
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+def healthz(request):
+    return HttpResponse("OK")
 
 urlpatterns = [
+    # healthcheck obligatorio para Railway
+    path("healthz/", healthz, name="healthz"),
+
     # panel de administración
     path('admin/', admin.site.urls),
 
-    # vistas de login/logout/password reset que Django ofrece por defecto
+    # login/logout/password-reset
     path('accounts/', include('django.contrib.auth.urls')),
 
-    # todas las rutas de tu app "core"
+    # tu aplicación principal
     path('', include('core.urls')),
 ]
 
-#Archivos estátios
-
+# servir media en desarrollo/production si lo necesitas
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

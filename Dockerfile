@@ -21,7 +21,6 @@ RUN python manage.py collectstatic --noinput || echo "Collectstatic failed"
 EXPOSE 8000
 
 # Arranca Gunicorn, usando $PORT si viene de Railway, o 8000 por defecto
-CMD ["sh","-c","python manage.py migrate --noinput && exec gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000}"]
 
 
 HEALTHCHECK --interval=30s --timeout=5s \
