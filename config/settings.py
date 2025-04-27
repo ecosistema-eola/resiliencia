@@ -1,11 +1,10 @@
+import sys
 import os
 from pathlib import Path
 import dj_database_url
 from decouple import config, UndefinedValueError
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 
 # Seguridad
 try:
@@ -16,17 +15,30 @@ except UndefinedValueError:
 DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
 
-database_url = config('DATABASE_URL', default=None)
-if not database_url and not DEBUG:
-    raise RuntimeError("En producción debes definir DATABASE_URL")
+#  ——> Saltarse el chequeo de DATABASE_URL en build de collectstatic
+if 'collectstatic' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    try:
+        database_url = config('DATABASE_URL')
+    except UndefinedValueError:
+        database_url = None
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL', default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
-        conn_max_age=600,
-        ssl_require=not DEBUG,
-    )
-}
+    if not database_url and not DEBUG:
+        raise RuntimeError("En producción debes definir DATABASE_URL")
+
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=database_url,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
+    }
 
 #DATABASES = {
 #    'default': dj_database_url.config(default=config('DATABASE_URL'))
