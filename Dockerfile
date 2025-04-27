@@ -23,4 +23,13 @@ RUN chmod +x /entrypoint.sh
 EXPOSE 8000
 
 # 8. Arranca con nuestro script
+
 ENTRYPOINT ["/entrypoint.sh"]
+
+# Salud: petición HTTP a /healthz/ en el puerto 8080
+HEALTHCHECK \
+  --interval=30s \
+  --timeout=5s \
+  --start-period=10s \
+  --retries=3 \
+  CMD curl --fail http://localhost:8080/healthz/ || exit 1
