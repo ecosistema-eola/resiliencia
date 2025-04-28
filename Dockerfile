@@ -14,7 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # 5. Copiar el resto del código
 COPY . /app/
-
+#
 # 6. Copiar y dar permisos al entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
