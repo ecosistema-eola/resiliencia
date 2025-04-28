@@ -1,7 +1,7 @@
-.plataforma_env/
-.env
-.git/
-.nixpacks/
-*.pyc
 __pycache__/
-
+*.pyc
+.git
+.venv
+media/
+node_modules/
+*.env
