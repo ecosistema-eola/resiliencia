@@ -8,7 +8,7 @@ DEBUG = os.environ.get('DJANGO_ENV') != 'production'
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-...')
 
-ALLOWED_HOSTS = ['Nick2l.pythonanywhere.com'] if not DEBUG else []
+ALLOWED_HOSTS = ['nick2l.pythonanywhere.com'] if not DEBUG else []
 
 # --------------------------------------------------
 # Selección de base de datos según entorno
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Static files (CSS, JS, imágenes)
 STATIC_URL = '/static/'
 
-# 1.4: Directorio donde collectstatic pondrá todos los archivos estáticos
+# Directorio donde collectstatic copiará todos los archivos
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
